@@ -191,7 +191,7 @@ enabled for any one attribute on the model.
             def select_for_count
               return super unless klass.respond_to?(:mobility_attribute?)
 
-              if select_values.any? { |value| value.right.start_with?(ATTRIBUTE_ALIAS_PREFIX) }
+              if select_values.any? { |value| !value.is_a?(String) && value.right.start_with?(ATTRIBUTE_ALIAS_PREFIX) }
                 filtered_select_values = select_values.map do |value|
                   value.right.start_with?(ATTRIBUTE_ALIAS_PREFIX) ? value.left : value
                 end
